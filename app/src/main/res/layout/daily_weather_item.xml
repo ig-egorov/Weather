@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/daily_weather_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_normal">
+
+        <ImageView
+            android:id="@+id/daily_weather_conditions"
+            android:layout_width="@dimen/image_width_normal"
+            android:layout_height="@dimen/image_height_normal"
+            android:contentDescription="@string/daily_weather_conditions_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+
+        <TextView
+            android:id="@+id/daily_weather_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large"
+            android:textSize="@dimen/text_normal"
+            app:layout_constraintBottom_toBottomOf="@+id/daily_weather_conditions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/daily_weather_conditions"
+            tools:text="@string/daily_weather_day_text" />
+
+        <TextView
+            android:id="@+id/daily_weather_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:textSize="@dimen/text_normal"
+            app:layout_constraintBottom_toBottomOf="@+id/daily_weather_conditions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/daily_weather_conditions"
+            tools:text="@string/daily_weather_temperature_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

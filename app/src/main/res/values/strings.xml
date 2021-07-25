@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Weather</string>
+    <!-- Current weather conditions layout strings -->
+    <string name="current_weather_conditions_description">Current weather conditions</string>
+    <string name="current_weather_temperature_text">16</string>
+    <string name="current_weather_city_text">Moscow</string>
+    <!-- Daily weather conditions layout strings -->
+    <string name="daily_weather_day_text">Sunday</string>
+    <string name="daily_weather_conditions_description">Daily weather conditions</string>
+    <string name="daily_weather_temperature_text">20</string>
+    <!-- Daily weather conditions layout strings -->
+    <string name="hourly_weather_time_text">Sunday</string>
+    <string name="hourly_weather_conditions_description">Current weather conditions</string>
+    <string name="hourly_weather_temperature_text">20</string>
+
 </resources>

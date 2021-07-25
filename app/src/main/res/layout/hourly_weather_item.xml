@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hourly_weather_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small">
+
+        <TextView
+            android:id="@+id/hourly_weather_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            app:layout_constraintBottom_toTopOf="@+id/hourly_weather_conditions"
+            app:layout_constraintEnd_toEndOf="@+id/hourly_weather_conditions"
+            app:layout_constraintStart_toStartOf="@+id/hourly_weather_conditions"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/hourly_weather_time_text" />
+
+        <ImageView
+            android:id="@+id/hourly_weather_conditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:contentDescription="@string/hourly_weather_conditions_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+
+
+        <TextView
+            android:id="@+id/hourly_weather_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/hourly_weather_conditions"
+            app:layout_constraintStart_toStartOf="@+id/hourly_weather_conditions"
+            app:layout_constraintTop_toBottomOf="@+id/hourly_weather_conditions"
+            tools:text="@string/hourly_weather_temperature_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

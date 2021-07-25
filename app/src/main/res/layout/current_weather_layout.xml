@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/current_weather_layout"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/current_weather_conditions"
+            android:layout_width="@dimen/image_width_large"
+            android:layout_height="@dimen/image_height_large"
+            android:layout_marginStart="@dimen/margin_xxlarge"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:contentDescription="@string/current_weather_conditions_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+
+        <TextView
+            android:id="@+id/current_weather_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_xxlarge"
+            android:textSize="@dimen/text_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/current_weather_conditions"
+            tools:text="@string/current_weather_temperature_text" />
+
+        <TextView
+            android:id="@+id/current_weather_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/current_weather_conditions"
+            app:layout_constraintEnd_toEndOf="@+id/current_weather_temperature"
+            app:layout_constraintTop_toBottomOf="@+id/current_weather_temperature"
+            tools:text="@string/current_weather_city_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
