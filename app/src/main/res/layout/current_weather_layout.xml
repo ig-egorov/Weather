@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="overallWeatherViewModel"
+            type="com.example.weather.ui.OverallWeatherViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/current_weather_layout"
         android:layout_marginTop="@dimen/margin_xlarge"
@@ -28,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_xxlarge"
             android:textSize="@dimen/text_large"
+            android:text = "@{overallWeatherViewModel.MCurrentTemperature}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/current_weather_conditions"
             tools:text="@string/current_weather_temperature_text" />
@@ -36,6 +43,7 @@
             android:id="@+id/current_weather_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{overallWeatherViewModel.MCurrentCity}"
             app:layout_constraintBottom_toBottomOf="@+id/current_weather_conditions"
             app:layout_constraintEnd_toEndOf="@+id/current_weather_temperature"
             app:layout_constraintTop_toBottomOf="@+id/current_weather_temperature"
