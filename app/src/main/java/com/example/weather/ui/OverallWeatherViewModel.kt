@@ -1,22 +1,32 @@
 package com.example.weather.ui
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weather.repository.LocationRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
-class OverallWeatherViewModel : ViewModel() {
+class OverallWeatherViewModel(val application: Application) : ViewModel() {
+
+    private val mViewModelJob = SupervisorJob()
+    private val mViewModelScope = CoroutineScope(Dispatchers.Main + mViewModelJob)
+
+    private val mLocationRepository = LocationRepository(application.applicationContext)
+
+    init {
+        mViewModelScope.launch {
+            mLocationRepository.updateLocation()
+        }
+    }
 
     private val _mCurrentTemperature = MutableLiveData<String>()
     val mCurrentTemperature: LiveData<String>
         get() = _mCurrentTemperature
 
-    private val _mCurrentCity = MutableLiveData<String>()
-    val mCurrentCity: LiveData<String>
-        get() = _mCurrentCity
+    val mCurrentCity = mLocationRepository.mCurrentCity
 
-    init {
-        LocationRepository.updateLocation()
-        _mCurrentCity.value = LocationRepository.mCurrentCity
-    }
 }

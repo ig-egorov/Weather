@@ -5,21 +5,22 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.weather.databinding.ActivityMainBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
 
 class MainActivity : AppCompatActivity() {
 
     private val mREQUEST_CODE = 42
-    private var cancellationTokenSource = CancellationTokenSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this,
-            R.layout.activity_main)
-        setContentView(binding.root)
+        val binding = DataBindingUtil
+            .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         checkPermissions()
     }
 
@@ -35,6 +36,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        cancellationTokenSource.cancel()
     }
 }
