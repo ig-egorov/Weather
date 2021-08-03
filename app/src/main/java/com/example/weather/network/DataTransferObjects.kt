@@ -19,3 +19,4 @@ fun CurrentWeatherDTO.asDomainModel(): CurrentWeather {
     )
 }
 
+

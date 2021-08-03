@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.R
+import com.example.weather.database.WeatherDatabase
 import com.example.weather.databinding.FragmentOverallWeatherBinding
 
 class OverallWeatherFragment : Fragment() {
@@ -17,7 +18,8 @@ class OverallWeatherFragment : Fragment() {
         val binding: FragmentOverallWeatherBinding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_overall_weather, container, false)
         val application = requireActivity().application
-        val viewModelFactory = OverallWeatherViewModelFactory(application)
+        val weatherDatabase = WeatherDatabase.getDatabase(application)
+        val viewModelFactory = OverallWeatherViewModelFactory(application, weatherDatabase)
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverallWeatherViewModel::class.java)
         binding.apply {
