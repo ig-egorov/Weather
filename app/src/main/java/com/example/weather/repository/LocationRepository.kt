@@ -7,6 +7,8 @@ import android.location.Geocoder
 import android.location.Location
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.entities.CityEntity
 import com.google.android.gms.location.*
@@ -14,17 +16,19 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.*
 import java.util.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
-const val TAG = "LocationRepository"
+private const val TAG = "LocationRepo"
 
 class LocationRepository(private val context: Context,
                          private val weatherDatabase: WeatherDatabase
 ) {
 
-    val locationRepositoryJob = Job()
-    val locationRepositoryScope = CoroutineScope(Dispatchers.IO + locationRepositoryJob)
-
-    val mCurrentCity = weatherDatabase.weatherDatabaseDAO.getCurrentCity()
+    private val _mCurrentCity = weatherDatabase.weatherDatabaseDAO.getCurrentCity()
+    val mCurrentCity: LiveData<CityEntity>
+        get() = _mCurrentCity
 
     suspend fun updateLocation() {
         withContext(Dispatchers.Default) {
@@ -32,38 +36,43 @@ class LocationRepository(private val context: Context,
                 .getFusedLocationProviderClient(context)
             val cancellationTokenSource = CancellationTokenSource()
 
-            if (ActivityCompat.checkSelfPermission(
-                    context, Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                Log.i(TAG, "PERMISSION GRANTED")
-                val currentLocationTask: Task<Location> = fusedLocationClient.getCurrentLocation(
-                    LocationRequest.PRIORITY_HIGH_ACCURACY,
-                    cancellationTokenSource.token
-                )
-                currentLocationTask.addOnCompleteListener { task: Task<Location> ->
-                    if (task.isSuccessful && task.result != null) {
-                        val geocoder = Geocoder(context)
-                        val addresses = geocoder
-                            .getFromLocation(task.result.latitude, task.result.longitude, 1)
-                        val overallCityInformation = addresses[0]
-                        val currentCity = overallCityInformation.locality
-                        Log.i(TAG, "${currentCity}")
+            val currentLocation = fusedLocationClient
+                .awaitCurrentLocation(context, cancellationTokenSource)
 
-                        locationRepositoryScope.launch {
-                        withContext(Dispatchers.IO) {
-                            weatherDatabase.weatherDatabaseDAO
-                                .insertCurrentCity(CityEntity(cityName = currentCity))
-                        }
-                        }
-                    } else {
-                        Log.i(TAG, "${task.exception}")
-                        return@addOnCompleteListener
-                    }
+            val geocoder = Geocoder(context)
 
-                }
+            val addresses = geocoder.getFromLocation(currentLocation.latitude,
+                currentLocation.longitude, 1)
 
+            val currentCity = addresses[0].locality
+
+            val currentCityEntity = CityEntity(cityName = currentCity)
+
+            withContext(Dispatchers.IO) {
+                weatherDatabase.weatherDatabaseDAO.insertCurrentCity(currentCityEntity)
+                Log.i(TAG, "${currentCityEntity.cityName}")
+                Log.i(TAG, "Weather Inserted")
             }
         }
     }
 }
+
+suspend fun FusedLocationProviderClient.awaitCurrentLocation(context: Context,
+                                                             cancellationTokenSource:
+                                                             CancellationTokenSource): Location =
+    suspendCancellableCoroutine { continuation ->
+        if (ActivityCompat.checkSelfPermission(
+                context, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            getCurrentLocation(
+                LocationRequest.PRIORITY_HIGH_ACCURACY,
+                cancellationTokenSource.token
+            )
+                .addOnSuccessListener { location ->
+                    continuation.resume(location)
+                }.addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
+    }

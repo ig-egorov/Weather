@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.weather.database.entities.CityEntity
+import com.example.weather.database.entities.CurrentWeatherEntity
 
-@Database(entities = [CityEntity::class], version = 1, exportSchema = false)
+@Database(entities = [CityEntity::class, CurrentWeatherEntity::class],
+    version = 1, exportSchema = false)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract val weatherDatabaseDAO: WeatherDatabaseDAO
 

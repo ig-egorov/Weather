@@ -22,17 +22,22 @@ class OverallWeatherViewModel(val application: Application,
 
     private val mLocationRepository = LocationRepository(application.applicationContext,
         weatherDatabase)
-    private val mCurrentWeatherRepository = CurrentWeatherRepository()
+    private val mCurrentWeatherRepository = CurrentWeatherRepository(weatherDatabase)
 
-    val mCurrentTemperature = MutableLiveData<String>()
 
     init {
         mViewModelScope.launch {
             mLocationRepository.updateLocation()
-            mCurrentTemperature.value = mCurrentWeatherRepository.getCurrentWeather()
+            //val city = weatherDatabase.weatherDatabaseDAO.getCurrentCity()
+            mCurrentWeatherRepository.updateCurrentWeather()
         }
     }
 
     val mCurrentCity = mLocationRepository.mCurrentCity
+    val mCurrentWeather = mCurrentWeatherRepository.mCurrentWeather
 
+    override fun onCleared() {
+        super.onCleared()
+        mViewModelJob.cancel()
+    }
 }

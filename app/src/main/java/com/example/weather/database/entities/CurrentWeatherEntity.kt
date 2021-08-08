@@ -9,9 +9,11 @@ import com.example.weather.inner_weather_classes.current_weather.CurrentWeatherC
 @Entity(tableName = "current_weather_table")
 data class CurrentWeatherEntity(
     @PrimaryKey(autoGenerate = true)
-    val currentWeatherId: Int,
-    @ColumnInfo(name = "current_weather_description")
-    val currentWeatherDescription: List<WeatherDescription>,
-    @ColumnInfo(name = "current_weather_conditions_info")
-    val currentWeatherConditionsInfo: CurrentWeatherConditionsInfo
+    val currentWeatherId: Long = 0L,
+    val temperature: Double,
+    val currentWeatherDescriptionId: Int,
+    val currentWeatherDescriptionMain: String,
+    val currentWeatherDescription: String,
+    val currentWeatherDescriptionIcon: String
 )
+
