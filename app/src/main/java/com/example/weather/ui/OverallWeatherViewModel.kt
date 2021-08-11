@@ -13,8 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class OverallWeatherViewModel(val application: Application,
-                              val weatherDatabase: WeatherDatabase
+class OverallWeatherViewModel(private val application: Application,
+                              private val weatherDatabase: WeatherDatabase
 ) : ViewModel() {
 
     private val mViewModelJob = SupervisorJob()
@@ -28,7 +28,6 @@ class OverallWeatherViewModel(val application: Application,
     init {
         mViewModelScope.launch {
             mLocationRepository.updateLocation()
-            //val city = weatherDatabase.weatherDatabaseDAO.getCurrentCity()
             mCurrentWeatherRepository.updateCurrentWeather()
         }
     }

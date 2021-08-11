@@ -9,5 +9,7 @@ data class CityEntity(
     @PrimaryKey(autoGenerate = true)
     val cityId: Long = 0L,
     @ColumnInfo(name = "city_name")
-    val cityName: String
+    val cityName: String,
+    val latitude: String,
+    val longitude: String
 )

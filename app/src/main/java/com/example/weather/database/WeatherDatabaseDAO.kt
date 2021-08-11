@@ -14,8 +14,8 @@ interface WeatherDatabaseDAO {
     @Query("SELECT * FROM cities_table ORDER BY cityId DESC LIMIT 1")
     fun getCurrentCity(): LiveData<CityEntity>
 
-    @Query("SELECT city_name FROM cities_table ORDER BY cityId DESC LIMIT 1")
-    suspend fun getCityData(): String
+    @Query("SELECT * FROM cities_table ORDER BY cityId DESC LIMIT 1")
+    suspend fun getCityData(): CityEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)

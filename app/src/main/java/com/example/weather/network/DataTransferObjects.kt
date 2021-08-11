@@ -1,31 +1,61 @@
 package com.example.weather.network
 
+import androidx.lifecycle.Transformations.map
 import com.example.weather.database.entities.CurrentWeatherEntity
+import com.example.weather.database.entities.DailyWeatherEntity
+import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.inner_weather_classes.WeatherDescription
 import com.example.weather.inner_weather_classes.current_weather.CurrentWeatherConditionsInfo
+import com.example.weather.inner_weather_classes.daily_weather.DailyWeatherConditionsInfo
+import com.example.weather.inner_weather_classes.hourly_weather.HourlyWeatherConditionsInfo
 import com.example.weather.weather_models.CurrentWeather
 import com.squareup.moshi.Json
 
-data class CurrentWeatherDTO(
-    @Json(name = "weather")
-    val currentWeatherDescription: List<WeatherDescription>,
-    @Json(name = "main")
-    val currentWeatherConditionsInfo: CurrentWeatherConditionsInfo,
+data class OverallWeatherDTO(
+    @Json(name = "timezone_offset")
+    val timeZoneOffset: Long,
+    @Json(name = "current")
+    val currentWeather: CurrentWeatherConditionsInfo,
+    @Json(name = "hourly")
+    val hourlyWeather: List<HourlyWeatherConditionsInfo>,
+    @Json(name = "daily")
+    val dailyWeather: List<DailyWeatherConditionsInfo>
 )
 
-fun CurrentWeatherDTO.asDomainModel(): CurrentWeather {
-    return CurrentWeather(
-        currentWeatherDescription = currentWeatherDescription,
-        currentWeatherConditionsInfo = currentWeatherConditionsInfo,
-    )
-}
-fun CurrentWeatherDTO.asDatabaseModel(): CurrentWeatherEntity {
+
+fun OverallWeatherDTO.asCurrentWeatherDatabaseModel(): CurrentWeatherEntity {
     return CurrentWeatherEntity(
-        temperature = currentWeatherConditionsInfo.temperature,
-        currentWeatherDescriptionId = currentWeatherDescription[0].id,
-        currentWeatherDescriptionMain = currentWeatherDescription[0].main,
-        currentWeatherDescription = currentWeatherDescription[0].description,
-        currentWeatherDescriptionIcon = currentWeatherDescription[0].icon
+        temperature = currentWeather.temperature,
+        currentWeatherDescriptionId = currentWeather.weather[0].id,
+        currentWeatherDescriptionMain = currentWeather.weather[0].main,
+        currentWeatherDescription = currentWeather.weather[0].description,
+        currentWeatherDescriptionIcon = currentWeather.weather[0].icon
     )
 }
 
+fun OverallWeatherDTO.asHourlyWeatherDatabaseModel(): Array<HourlyWeatherEntity> {
+    return hourlyWeather.map {
+        HourlyWeatherEntity(
+            hourlyWeatherId = hourlyWeather.indexOf(it),
+            temperature = it.temperature,
+            hourlyWeatherDescriptionId = it.weather[0].id,
+            hourlyWeatherDescriptionMain = it.weather[0].main,
+            hourlyWeatherDescription = it.weather[0].description,
+            hourlyWeatherDescriptionIcon = it.weather[0].icon
+        )
+    }.toTypedArray()
+}
+
+fun OverallWeatherDTO.asDailyWeatherDatabaseModel(): Array<DailyWeatherEntity> {
+    return dailyWeather.map {
+        DailyWeatherEntity(
+            dailyWeatherId = dailyWeather.indexOf(it),
+            date = it.date,
+            maxTemperature = it.temperature.maxTemperature,
+            dailyWeatherDescriptionId = it.weather[0].id,
+            dailyWeatherDescriptionMain = it.weather[0].main,
+            dailyWeatherDescription = it.weather[0].description,
+            dailyWeatherDescriptionIcon = it.weather[0].icon
+        )
+    }.toTypedArray()
+}

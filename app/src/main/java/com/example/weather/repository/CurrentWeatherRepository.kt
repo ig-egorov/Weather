@@ -7,8 +7,7 @@ import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.network.WeatherAPI
-import com.example.weather.network.asDatabaseModel
-import com.example.weather.network.asDomainModel
+import com.example.weather.network.asCurrentWeatherDatabaseModel
 import kotlinx.coroutines.*
 
 private const val TAG = "CurrentWeatherRepo"
@@ -21,10 +20,10 @@ class CurrentWeatherRepository(private val database: WeatherDatabase) {
 
     suspend fun updateCurrentWeather() {
         withContext(Dispatchers.IO) {
-                val cityName = database.weatherDatabaseDAO.getCityData()
-                val currentWeatherDTO = WeatherAPI.currentWeatherRetrofitService
-                    .getCurrentWeather(cityName)
-                val currentWeatherEntity = currentWeatherDTO.asDatabaseModel()
+                val cityEntity = database.weatherDatabaseDAO.getCityData()
+                val currentWeatherDTO = WeatherAPI.overallWeatherRetrofitService
+                    .getCurrentWeather(cityEntity.latitude, cityEntity.longitude)
+                val currentWeatherEntity = currentWeatherDTO.asCurrentWeatherDatabaseModel()
                 database.weatherDatabaseDAO.insertCurrentWeather(currentWeatherEntity)
         }
 

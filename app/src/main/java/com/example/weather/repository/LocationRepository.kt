@@ -46,7 +46,9 @@ class LocationRepository(private val context: Context,
 
             val currentCity = addresses[0].locality
 
-            val currentCityEntity = CityEntity(cityName = currentCity)
+            val currentCityEntity = CityEntity(cityName = currentCity,
+                latitude = currentLocation.latitude.toString(),
+                longitude = currentLocation.longitude.toString())
 
             withContext(Dispatchers.IO) {
                 weatherDatabase.weatherDatabaseDAO.insertCurrentCity(currentCityEntity)
