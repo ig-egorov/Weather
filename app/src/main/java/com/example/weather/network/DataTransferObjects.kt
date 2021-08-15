@@ -37,6 +37,7 @@ fun OverallWeatherDTO.asHourlyWeatherDatabaseModel(): Array<HourlyWeatherEntity>
     return hourlyWeather.map {
         HourlyWeatherEntity(
             hourlyWeatherId = hourlyWeather.indexOf(it),
+            date = it.date,
             temperature = it.temperature,
             hourlyWeatherDescriptionId = it.weather[0].id,
             hourlyWeatherDescriptionMain = it.weather[0].main,

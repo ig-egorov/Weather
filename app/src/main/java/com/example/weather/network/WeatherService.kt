@@ -22,7 +22,7 @@ private val mRetrofit = Retrofit.Builder()
 
 interface CurrentWeatherApiService {
     @GET("onecall")
-    suspend fun getCurrentWeather(
+    suspend fun getWeather(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
         @Query("units") units: String = WEATHER_UNITS,

@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/current_weather_layout.xml" value="0.23541585775882745" />
+        <entry key="app/src/main/res/layout/hourly_weather_item.xml" value="0.20153985507246377" />
+        <entry key="app/src/main/res/layout/hourly_weather_recycler.xml" value="0.20153985507246377" />
       </map>
     </option>
   </component>

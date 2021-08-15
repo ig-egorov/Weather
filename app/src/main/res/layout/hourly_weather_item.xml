@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="hourlyWeatherEntity"
+            type="com.example.weather.database.entities.HourlyWeatherEntity" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hourly_weather_item"
@@ -15,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_small"
+            app:bindHour="@{hourlyWeatherEntity}"
             app:layout_constraintBottom_toTopOf="@+id/hourly_weather_conditions"
             app:layout_constraintEnd_toEndOf="@+id/hourly_weather_conditions"
             app:layout_constraintStart_toStartOf="@+id/hourly_weather_conditions"
@@ -23,13 +30,14 @@
 
         <ImageView
             android:id="@+id/hourly_weather_conditions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_width_normal"
+            android:layout_height="@dimen/image_height_normal"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:contentDescription="@string/hourly_weather_conditions_description"
+            app:bindHourlyWeatherDescriptionIcon="@{hourlyWeatherEntity}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
+            app:bindHourlyTemperature="@{hourlyWeatherEntity}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/hourly_weather_conditions"
             app:layout_constraintStart_toStartOf="@+id/hourly_weather_conditions"

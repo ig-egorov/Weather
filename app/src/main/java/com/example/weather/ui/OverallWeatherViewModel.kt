@@ -28,12 +28,13 @@ class OverallWeatherViewModel(private val application: Application,
     init {
         mViewModelScope.launch {
             mLocationRepository.updateLocation()
-            mCurrentWeatherRepository.updateCurrentWeather()
+            mCurrentWeatherRepository.updateWeather()
         }
     }
 
     val mCurrentCity = mLocationRepository.mCurrentCity
     val mCurrentWeather = mCurrentWeatherRepository.mCurrentWeather
+    val mHourlyWeather = mCurrentWeatherRepository.mHourlyWeather
 
     override fun onCleared() {
         super.onCleared()

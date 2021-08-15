@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class HourlyWeatherEntity(
     @PrimaryKey(autoGenerate = false)
     val hourlyWeatherId: Int,
+    val date: Long,
     val temperature: Double,
     val hourlyWeatherDescriptionId: Int,
     val hourlyWeatherDescriptionMain: String,

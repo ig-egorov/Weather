@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:contentDescription="@string/current_weather_conditions_description"
-            app:bindWeatherDescriptionIcon="@{overallWeatherViewModel.MCurrentWeather.currentWeatherDescriptionIcon}"
+            app:bindCurrentWeatherDescriptionIcon="@{overallWeatherViewModel.MCurrentWeather}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/current_weather_temperature"
             app:layout_constraintHorizontal_bias="0.5"
