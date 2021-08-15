@@ -28,8 +28,6 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
 
         fun bind(item: HourlyWeatherEntity) {
             binding.hourlyWeatherEntity = item
-            binding.hourlyWeatherTime.text = item.date.toString()
-            binding.hourlyWeatherTemperature.text = item.temperature.toString()
             binding.executePendingBindings()
         }
 
