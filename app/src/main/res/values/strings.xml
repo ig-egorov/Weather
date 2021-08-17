@@ -13,4 +13,13 @@
     <string name="hourly_weather_conditions_description">Current weather conditions</string>
     <string name="hourly_weather_temperature_text">20</string>
 
+    <!-- Day of the week strings-->
+    <string name="sunday">Воскресенье</string>
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+
 </resources>

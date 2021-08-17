@@ -35,6 +35,7 @@ class OverallWeatherViewModel(private val application: Application,
     val mCurrentCity = mLocationRepository.mCurrentCity
     val mCurrentWeather = mCurrentWeatherRepository.mCurrentWeather
     val mHourlyWeather = mCurrentWeatherRepository.mHourlyWeather
+    val mDailyWeather = mCurrentWeatherRepository.mDailyWeather
 
     override fun onCleared() {
         super.onCleared()

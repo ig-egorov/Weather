@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.CurrentWeatherEntity
+import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.network.WeatherAPI
 import com.example.weather.network.asCurrentWeatherDatabaseModel
+import com.example.weather.network.asDailyWeatherDatabaseModel
 import com.example.weather.network.asHourlyWeatherDatabaseModel
 import kotlinx.coroutines.*
 
@@ -24,6 +26,10 @@ class CurrentWeatherRepository(private val database: WeatherDatabase) {
     val mHourlyWeather: LiveData<List<HourlyWeatherEntity>>
         get() = _mHourlyWeather
 
+    private val _mDailyWeather = database.weatherDatabaseDAO.getDailyWeather()
+    val mDailyWeather: LiveData<List<DailyWeatherEntity>>
+        get() = _mDailyWeather
+
     suspend fun updateWeather() {
         withContext(Dispatchers.IO) {
                 val cityEntity = database.weatherDatabaseDAO.getCityData()
@@ -31,8 +37,10 @@ class CurrentWeatherRepository(private val database: WeatherDatabase) {
                     .getWeather(cityEntity.latitude, cityEntity.longitude)
                 val currentWeatherEntity = weatherDTO.asCurrentWeatherDatabaseModel()
                 val hourlyWeather = weatherDTO.asHourlyWeatherDatabaseModel()
+                val dailyWeather = weatherDTO.asDailyWeatherDatabaseModel()
                 database.weatherDatabaseDAO.insertCurrentWeather(currentWeatherEntity)
                 database.weatherDatabaseDAO.insertHourlyWeather(*hourlyWeather)
+                database.weatherDatabaseDAO.insertDailyWeather(*dailyWeather)
         }
 
     }

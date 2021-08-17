@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.R
+import com.example.weather.adapters.DailyWeatherAdapter
 import com.example.weather.adapters.HourlyWeatherAdapter
 import com.example.weather.database.WeatherDatabase
 import com.example.weather.databinding.FragmentOverallWeatherBinding
@@ -35,11 +38,20 @@ class OverallWeatherFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val hourlyWeatherAdapter = HourlyWeatherAdapter()
-        binding.hourlyWeatherRecycler.hourlyWeatherRecycler.adapter = hourlyWeatherAdapter
+        binding.hourlyWeatherLayout.hourlyWeatherRecycler.adapter = hourlyWeatherAdapter
 
         viewModel.mHourlyWeather.observe(viewLifecycleOwner, Observer { it ->
             it?.let {
                 hourlyWeatherAdapter.submitList(it)
+            }
+        })
+
+        val dailyWeatherAdapter = DailyWeatherAdapter()
+        binding.dailyWeatherLayout.dailyWeatherRecycler.adapter = dailyWeatherAdapter
+
+        viewModel.mDailyWeather.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                dailyWeatherAdapter.submitList(it)
             }
         })
 

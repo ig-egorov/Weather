@@ -13,11 +13,11 @@
         layout="@layout/current_weather_layout"/>
 
     <include
-        android:id="@+id/hourly_weather_recycler"
+        android:id="@+id/hourly_weather_layout"
         layout="@layout/hourly_weather_recycler"/>
 
     <include
-        android:id="@+id/daily_weather_recycler"
+        android:id="@+id/daily_weather_layout"
         layout="@layout/daily_weather_recycler"/>
 
 </LinearLayout>

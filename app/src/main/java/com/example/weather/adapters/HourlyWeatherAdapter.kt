@@ -10,7 +10,7 @@ import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.databinding.HourlyWeatherItemBinding
 
 class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
-        HourlyWeatherAdapter.HourlyWeatherViewHolder>(HourlyWeatherDiffCallback()) {
+        HourlyWeatherAdapter.HourlyWeatherViewHolder>(HourlyWeatherDiffCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyWeatherViewHolder {
@@ -24,7 +24,6 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
 
     class HourlyWeatherViewHolder private constructor(val binding: HourlyWeatherItemBinding) :
                                                             RecyclerView.ViewHolder(binding.root) {
-        val image: ImageView = binding.hourlyWeatherConditions
 
         fun bind(item: HourlyWeatherEntity) {
             binding.hourlyWeatherEntity = item
@@ -40,7 +39,7 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
         }
     }
 
-    private class HourlyWeatherDiffCallback : DiffUtil.ItemCallback<HourlyWeatherEntity>() {
+    companion object HourlyWeatherDiffCallback : DiffUtil.ItemCallback<HourlyWeatherEntity>() {
         override fun areItemsTheSame(oldItem: HourlyWeatherEntity,
                                      newItem: HourlyWeatherEntity): Boolean {
             return oldItem.hourlyWeatherId == newItem.hourlyWeatherId

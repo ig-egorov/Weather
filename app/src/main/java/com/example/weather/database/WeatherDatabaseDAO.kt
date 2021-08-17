@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.CurrentWeatherEntity
+import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
 
 @Dao
@@ -32,4 +33,11 @@ interface WeatherDatabaseDAO {
 
     @Query("SELECT * FROM hourly_weather_table ORDER BY hourlyWeatherId ASC LIMIT 24")
     fun getHourlyWeather(): LiveData<List<HourlyWeatherEntity>>
+
+    //DailyWeather methods
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyWeather(vararg dailyWeatherEntity: DailyWeatherEntity)
+
+    @Query("SELECT * FROM daily_weather_table WHERE dailyWeatherId > 0 ORDER BY dailyWeatherId ASC")
+    fun getDailyWeather(): LiveData<List<DailyWeatherEntity>>
 }
