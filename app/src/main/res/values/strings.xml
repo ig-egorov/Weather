@@ -22,4 +22,7 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
 
+    <!--Error strings-->
+    <string name="location_error">Служба геолокации недоступна</string>
+    <string name="network_error">Соединение недоступно</string>
 </resources>

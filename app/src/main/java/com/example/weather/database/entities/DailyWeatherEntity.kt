@@ -9,6 +9,7 @@ data class DailyWeatherEntity (
     val dailyWeatherId: Int,
     val date: Long,
     val maxTemperature: Double,
+    val minTemperature: Double,
     val dailyWeatherDescriptionId: Int,
     val dailyWeatherDescriptionMain: String,
     val dailyWeatherDescription: String,

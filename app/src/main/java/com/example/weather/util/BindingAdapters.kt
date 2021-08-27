@@ -10,8 +10,6 @@ import com.example.weather.R
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
-import java.time.DayOfWeek
-import java.time.ZoneId
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -93,8 +91,8 @@ fun bindDailyDay(textView: TextView, dailyWeatherEntity: DailyWeatherEntity?) {
 @BindingAdapter("bindDailyTemperature")
 fun bindDailyTemperature(textView: TextView, dailyWeatherEntity: DailyWeatherEntity?) {
     dailyWeatherEntity?.let {
-        val temperature = dailyWeatherEntity.maxTemperature.roundToInt()
-        val temperatureString = temperature.toString() + TEMPERATURE_SIGN
+        val temperature = (dailyWeatherEntity.maxTemperature + dailyWeatherEntity.minTemperature)/2
+        val temperatureString = temperature.roundToInt().toString() + TEMPERATURE_SIGN
         textView.text = temperatureString
     }
 }

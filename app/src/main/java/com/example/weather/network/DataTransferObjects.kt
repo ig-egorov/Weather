@@ -53,6 +53,7 @@ fun OverallWeatherDTO.asDailyWeatherDatabaseModel(): Array<DailyWeatherEntity> {
             dailyWeatherId = dailyWeather.indexOf(it),
             date = it.date,
             maxTemperature = it.temperature.maxTemperature,
+            minTemperature = it.temperature.minTemperature,
             dailyWeatherDescriptionId = it.weather[0].id,
             dailyWeatherDescriptionMain = it.weather[0].main,
             dailyWeatherDescription = it.weather[0].description,

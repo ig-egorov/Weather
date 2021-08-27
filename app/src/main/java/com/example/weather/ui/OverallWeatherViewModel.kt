@@ -28,7 +28,7 @@ class OverallWeatherViewModel(private val application: Application,
     init {
         mViewModelScope.launch {
             mLocationRepository.updateLocation()
-            mCurrentWeatherRepository.updateWeather()
+            mCurrentWeatherRepository.updateWeather(application.applicationContext)
         }
     }
 
