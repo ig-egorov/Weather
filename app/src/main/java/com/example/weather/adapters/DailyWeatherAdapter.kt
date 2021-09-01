@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.databinding.DailyWeatherItemBinding
+import com.example.weather.weather_models.DailyWeather
 
-class DailyWeatherAdapter : ListAdapter<DailyWeatherEntity,
+class DailyWeatherAdapter(val clickListener: DailyWeatherClickListener) : ListAdapter<DailyWeather,
         DailyWeatherAdapter.DailyWeatherViewHolder>(DailyWeatherDiffCallback) {
 
 
@@ -18,14 +19,15 @@ class DailyWeatherAdapter : ListAdapter<DailyWeatherEntity,
 
     override fun onBindViewHolder(holder: DailyWeatherViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(clickListener, item)
     }
 
     class DailyWeatherViewHolder private constructor(val binding: DailyWeatherItemBinding) :
-                                                        RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DailyWeatherEntity) {
-            binding.dailyWeatherEntity = item
+        fun bind(clickListener: DailyWeatherClickListener, item: DailyWeather) {
+            binding.dailyWeather = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -38,14 +40,25 @@ class DailyWeatherAdapter : ListAdapter<DailyWeatherEntity,
         }
     }
 
-    companion object DailyWeatherDiffCallback : DiffUtil.ItemCallback<DailyWeatherEntity>() {
-        override fun areItemsTheSame(oldItem: DailyWeatherEntity, newItem: DailyWeatherEntity): Boolean {
+    companion object DailyWeatherDiffCallback : DiffUtil.ItemCallback<DailyWeather>() {
+        override fun areItemsTheSame(
+            oldItem: DailyWeather,
+            newItem: DailyWeather
+        ): Boolean {
             return oldItem.dailyWeatherId == newItem.dailyWeatherId
         }
 
-        override fun areContentsTheSame(oldItem: DailyWeatherEntity, newItem: DailyWeatherEntity): Boolean {
+        override fun areContentsTheSame(
+            oldItem: DailyWeather,
+            newItem: DailyWeather
+        ): Boolean {
             return oldItem == newItem
         }
     }
 
+}
+
+class DailyWeatherClickListener(val clickListener: (dailyWeatherId: Int) -> Unit) {
+    fun onDailyWeatherClick(dailyWeather: DailyWeather) =
+        clickListener(dailyWeather.dailyWeatherId)
 }

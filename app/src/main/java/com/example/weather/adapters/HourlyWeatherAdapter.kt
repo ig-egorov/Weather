@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.databinding.HourlyWeatherItemBinding
+import com.example.weather.weather_models.HourlyWeather
 
-class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
+class HourlyWeatherAdapter : ListAdapter<HourlyWeather,
         HourlyWeatherAdapter.HourlyWeatherViewHolder>(HourlyWeatherDiffCallback) {
 
 
@@ -25,8 +26,8 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
     class HourlyWeatherViewHolder private constructor(val binding: HourlyWeatherItemBinding) :
                                                             RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: HourlyWeatherEntity) {
-            binding.hourlyWeatherEntity = item
+        fun bind(item: HourlyWeather) {
+            binding.hourlyWeather = item
             binding.executePendingBindings()
         }
 
@@ -39,14 +40,14 @@ class HourlyWeatherAdapter : ListAdapter<HourlyWeatherEntity,
         }
     }
 
-    companion object HourlyWeatherDiffCallback : DiffUtil.ItemCallback<HourlyWeatherEntity>() {
-        override fun areItemsTheSame(oldItem: HourlyWeatherEntity,
-                                     newItem: HourlyWeatherEntity): Boolean {
+    companion object HourlyWeatherDiffCallback : DiffUtil.ItemCallback<HourlyWeather>() {
+        override fun areItemsTheSame(oldItem: HourlyWeather,
+                                     newItem: HourlyWeather): Boolean {
             return oldItem.hourlyWeatherId == newItem.hourlyWeatherId
         }
 
-        override fun areContentsTheSame(oldItem: HourlyWeatherEntity,
-                                        newItem: HourlyWeatherEntity): Boolean {
+        override fun areContentsTheSame(oldItem: HourlyWeather,
+                                        newItem: HourlyWeather): Boolean {
             return oldItem == newItem
         }
     }

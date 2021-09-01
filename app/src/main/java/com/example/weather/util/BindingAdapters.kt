@@ -10,6 +10,10 @@ import com.example.weather.R
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
+import com.example.weather.weather_models.CurrentCity
+import com.example.weather.weather_models.CurrentWeather
+import com.example.weather.weather_models.DailyWeather
+import com.example.weather.weather_models.HourlyWeather
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -18,28 +22,36 @@ private const val BASE_URL = "https://openweathermap.org/img/wn/"
 private const val EXTENSION = ".png"
 
 @BindingAdapter("bindCurrentTemperature")
-fun bindCurrentTemperature(textView: TextView, currentWeatherEntity: CurrentWeatherEntity?) {
-    currentWeatherEntity?.let {
-        val temperature = currentWeatherEntity.temperature.roundToInt()
+fun bindCurrentTemperature(textView: TextView, currentWeather: CurrentWeather?) {
+    currentWeather?.let {
+        val temperature = currentWeather.temperature.roundToInt()
         val temperatureString = temperature.toString() + TEMPERATURE_SIGN
         textView.text = temperatureString
     }
 }
 
 @BindingAdapter("bindCurrentWeatherDescriptionIcon")
-fun bindCurrentWeatherDescriptionIcon(imageView: ImageView, currentWeatherEntity: CurrentWeatherEntity?) {
-    currentWeatherEntity?.let {
-        val icon = currentWeatherEntity.currentWeatherDescriptionIcon
+fun bindCurrentWeatherDescriptionIcon(imageView: ImageView, currentWeather: CurrentWeather?) {
+    currentWeather?.let {
+        val icon = currentWeather.currentWeatherDescriptionIcon
         val imageUrl = "$BASE_URL$icon@2x$EXTENSION"
         val imageUri = imageUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context).load(imageUri).into(imageView)
     }
 }
 
+@BindingAdapter("bindCurrentCity")
+fun bindCurrentCity(textView: TextView, city: CurrentCity?) {
+    city?.let {
+        val cityName = city.cityName
+        textView.text = cityName
+    }
+}
+
 @BindingAdapter("bindHour")
-fun bindHour(textView: TextView, hourlyWeatherEntity: HourlyWeatherEntity?) {
-    hourlyWeatherEntity?.let {
-        val timeInSeconds = hourlyWeatherEntity.date
+fun bindHour(textView: TextView, hourlyWeather: HourlyWeather?) {
+    hourlyWeather?.let {
+        val timeInSeconds = hourlyWeather.date
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timeInSeconds * 1000L
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -49,29 +61,28 @@ fun bindHour(textView: TextView, hourlyWeatherEntity: HourlyWeatherEntity?) {
 }
 
 @BindingAdapter("bindHourlyWeatherDescriptionIcon")
-fun bindHourlyWeatherDescriptionIcon(imageView: ImageView, hourlyWeatherEntity: HourlyWeatherEntity?) {
-    hourlyWeatherEntity?.let {
-        val icon = hourlyWeatherEntity.hourlyWeatherDescriptionIcon
+fun bindHourlyWeatherDescriptionIcon(imageView: ImageView, hourlyWeather: HourlyWeather?) {
+    hourlyWeather?.let {
+        val icon = hourlyWeather.hourlyWeatherDescriptionIcon
         val imageUrl = "$BASE_URL$icon$EXTENSION"
         val imageUri = imageUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context).load(imageUri).into(imageView)
     }
 }
 
-
 @BindingAdapter("bindHourlyTemperature")
-fun bindHourlyTemperature(textView: TextView, hourlyWeatherEntity: HourlyWeatherEntity?) {
-    hourlyWeatherEntity?.let {
-        val temperature = hourlyWeatherEntity.temperature.roundToInt()
+fun bindHourlyTemperature(textView: TextView, hourlyWeather: HourlyWeather?) {
+    hourlyWeather?.let {
+        val temperature = hourlyWeather.temperature.roundToInt()
         val temperatureString = temperature.toString() + TEMPERATURE_SIGN
         textView.text = temperatureString
     }
 }
 
 @BindingAdapter("bindDailyDay")
-fun bindDailyDay(textView: TextView, dailyWeatherEntity: DailyWeatherEntity?) {
-    dailyWeatherEntity?.let {
-        val dayInSeconds = dailyWeatherEntity.date
+fun bindDailyDay(textView: TextView, dailyWeather: DailyWeather?) {
+    dailyWeather?.let {
+        val dayInSeconds = dailyWeather.date
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = dayInSeconds * 1000L
         val context = textView.context
@@ -89,20 +100,21 @@ fun bindDailyDay(textView: TextView, dailyWeatherEntity: DailyWeatherEntity?) {
 }
 
 @BindingAdapter("bindDailyTemperature")
-fun bindDailyTemperature(textView: TextView, dailyWeatherEntity: DailyWeatherEntity?) {
-    dailyWeatherEntity?.let {
-        val temperature = (dailyWeatherEntity.maxTemperature + dailyWeatherEntity.minTemperature)/2
+fun bindDailyTemperature(textView: TextView, dailyWeather: DailyWeather?) {
+    dailyWeather?.let {
+        val temperature = (dailyWeather.maxTemperature + dailyWeather.minTemperature)/2
         val temperatureString = temperature.roundToInt().toString() + TEMPERATURE_SIGN
         textView.text = temperatureString
     }
 }
 
 @BindingAdapter("bindDailyWeatherDescriptionIcon")
-fun bindDailyWeatherDescriptionIcon(imageView: ImageView, dailyWeatherEntity: DailyWeatherEntity?) {
-    dailyWeatherEntity?.let {
-        val icon = dailyWeatherEntity.dailyWeatherDescriptionIcon
+fun bindDailyWeatherDescriptionIcon(imageView: ImageView, dailyWeather: DailyWeather?) {
+    dailyWeather?.let {
+        val icon = dailyWeather.dailyWeatherDescriptionIcon
         val imgUrl = "$BASE_URL$icon$EXTENSION"
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imageView.context).load(imgUri).into(imageView)
     }
 }
+

@@ -15,7 +15,7 @@ interface WeatherDatabaseDAO {
     suspend fun insertCurrentCity(cityEntity: CityEntity)
 
     @Query("SELECT * FROM cities_table ORDER BY cityId DESC LIMIT 1")
-    fun getCurrentCity(): LiveData<CityEntity>
+    fun getCurrentCity(): LiveData<CityEntity?>
 
     @Query("SELECT * FROM cities_table ORDER BY cityId DESC LIMIT 1")
     suspend fun getCityData(): CityEntity
@@ -25,7 +25,7 @@ interface WeatherDatabaseDAO {
     suspend fun insertCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)
 
     @Query("SELECT * FROM current_weather_table ORDER BY currentWeatherId DESC LIMIT 1")
-    fun getCurrentWeather(): LiveData<CurrentWeatherEntity>
+    fun getCurrentWeather(): LiveData<CurrentWeatherEntity?>
 
     //HourlyWeather methods
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -40,4 +40,5 @@ interface WeatherDatabaseDAO {
 
     @Query("SELECT * FROM daily_weather_table WHERE dailyWeatherId > 0 ORDER BY dailyWeatherId ASC")
     fun getDailyWeather(): LiveData<List<DailyWeatherEntity>>
+
 }

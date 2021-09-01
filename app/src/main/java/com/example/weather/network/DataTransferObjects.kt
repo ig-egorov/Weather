@@ -1,14 +1,11 @@
 package com.example.weather.network
 
-import androidx.lifecycle.Transformations.map
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
-import com.example.weather.inner_weather_classes.WeatherDescription
 import com.example.weather.inner_weather_classes.current_weather.CurrentWeatherConditionsInfo
 import com.example.weather.inner_weather_classes.daily_weather.DailyWeatherConditionsInfo
 import com.example.weather.inner_weather_classes.hourly_weather.HourlyWeatherConditionsInfo
-import com.example.weather.weather_models.CurrentWeather
 import com.squareup.moshi.Json
 
 data class OverallWeatherDTO(
@@ -52,8 +49,12 @@ fun OverallWeatherDTO.asDailyWeatherDatabaseModel(): Array<DailyWeatherEntity> {
         DailyWeatherEntity(
             dailyWeatherId = dailyWeather.indexOf(it),
             date = it.date,
+            sunriseTime = it.sunriseTime,
+            sunsetTime = it.sunsetTime,
             maxTemperature = it.temperature.maxTemperature,
             minTemperature = it.temperature.minTemperature,
+            humidity = it.humidity,
+            windSpeed = it.windSpeed,
             dailyWeatherDescriptionId = it.weather[0].id,
             dailyWeatherDescriptionMain = it.weather[0].main,
             dailyWeatherDescription = it.weather[0].description,

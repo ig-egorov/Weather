@@ -5,8 +5,11 @@
 
     <data>
         <variable
-            name="dailyWeatherEntity"
-            type="com.example.weather.database.entities.DailyWeatherEntity" />
+            name="dailyWeather"
+            type="com.example.weather.weather_models.DailyWeather" />
+        <variable
+            name="clickListener"
+            type="com.example.weather.adapters.DailyWeatherClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,14 +17,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"
-        android:layout_marginBottom="@dimen/margin_normal">
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:onClick="@{() -> clickListener.onDailyWeatherClick(dailyWeather)}">
 
         <ImageView
             android:id="@+id/daily_weather_conditions"
             android:layout_width="@dimen/image_width_normal"
             android:layout_height="@dimen/image_height_normal"
             android:contentDescription="@string/daily_weather_conditions_description"
-            app:bindDailyWeatherDescriptionIcon="@{dailyWeatherEntity}"
+            app:bindDailyWeatherDescriptionIcon="@{dailyWeather}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_large"
             android:textSize="@dimen/text_normal"
-            app:bindDailyDay="@{dailyWeatherEntity}"
+            app:bindDailyDay="@{dailyWeather}"
             app:layout_constraintBottom_toBottomOf="@+id/daily_weather_conditions"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/daily_weather_conditions"
@@ -46,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_large"
             android:textSize="@dimen/text_normal"
-            app:bindDailyTemperature="@{dailyWeatherEntity}"
+            app:bindDailyTemperature="@{dailyWeather}"
             app:layout_constraintBottom_toBottomOf="@+id/daily_weather_conditions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/daily_weather_conditions"

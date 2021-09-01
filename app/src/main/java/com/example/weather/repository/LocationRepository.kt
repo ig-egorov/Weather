@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.weather.R
 import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.entities.CityEntity
+import com.example.weather.database.entities.asDomainModel
+import com.example.weather.weather_models.CurrentCity
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.*
@@ -30,8 +33,12 @@ class LocationRepository(
     private val weatherDatabase: WeatherDatabase
 ) {
 
-    private val _mCurrentCity = weatherDatabase.weatherDatabaseDAO.getCurrentCity()
-    val mCurrentCity: LiveData<CityEntity>
+    private val _mCurrentCity = Transformations
+        .map(weatherDatabase.weatherDatabaseDAO.getCurrentCity()) {
+            it?.asDomainModel()
+        }
+
+    val mCurrentCity: LiveData<CurrentCity?>
         get() = _mCurrentCity
 
     suspend fun updateLocation() {
@@ -55,8 +62,10 @@ class LocationRepository(
                         continuation.resume(addresses)
                     } catch (e: IOException) {
                         ContextCompat.getMainExecutor(context).execute {
-                            Toast.makeText(context, context.getString(R.string.location_error),
-                                Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                context, context.getString(R.string.location_error),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
