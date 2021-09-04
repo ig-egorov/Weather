@@ -60,7 +60,7 @@ class LocationRepository(
                             currentLocation.longitude, 1
                         )
                         continuation.resume(addresses)
-                    } catch (e: IOException) {
+                    } catch (e: Exception) {
                         ContextCompat.getMainExecutor(context).execute {
                             Toast.makeText(
                                 context, context.getString(R.string.location_error),
