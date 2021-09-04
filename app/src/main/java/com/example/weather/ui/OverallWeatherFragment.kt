@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.R
@@ -49,13 +50,21 @@ class OverallWeatherFragment : Fragment() {
         })
 
         val dailyWeatherAdapter = DailyWeatherAdapter(DailyWeatherClickListener { dailyWeatherId ->
-            Toast.makeText(context, "$dailyWeatherId", Toast.LENGTH_SHORT).show()
+            viewModel.onDayClicked(dailyWeatherId)
         })
         binding.dailyWeatherLayout.dailyWeatherRecycler.adapter = dailyWeatherAdapter
 
         viewModel.mDailyWeather.observe(viewLifecycleOwner, Observer {
             it?.let {
                 dailyWeatherAdapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToDetails.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController().navigate(OverallWeatherFragmentDirections
+                    .actionOverallWeatherFragmentToDailyWeatherDetailFragment(it))
+                viewModel.onWeatherDetailsNavigated()
             }
         })
 

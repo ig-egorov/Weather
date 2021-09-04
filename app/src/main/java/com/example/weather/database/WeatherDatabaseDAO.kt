@@ -41,4 +41,7 @@ interface WeatherDatabaseDAO {
     @Query("SELECT * FROM daily_weather_table WHERE dailyWeatherId > 0 ORDER BY dailyWeatherId ASC")
     fun getDailyWeather(): LiveData<List<DailyWeatherEntity>>
 
+    @Query("SELECT * FROM daily_weather_table WHERE dailyWeatherId = :id")
+    fun getDailyWeatherWithId(id: Int): LiveData<DailyWeatherEntity>
+
 }

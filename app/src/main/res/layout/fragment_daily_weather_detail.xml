@@ -1,14 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.DailyWeatherDetailFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.weather.ui.DailyWeatherDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="horizontal"
+        tools:context=".ui.DailyWeatherDetailFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/max_temp_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/max_temp_key"
+            tools:text="@string/max_temp_value" />
+
+        <TextView
+            android:id="@+id/details_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/daily_weather_day_text" />
+
+        <ImageView
+            android:id="@+id/details_image"
+            android:layout_width="@dimen/image_width_large"
+            android:layout_height="@dimen/image_height_large"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:contentDescription="@string/daily_weather_conditions_description"
+            app:layout_constraintEnd_toStartOf="@+id/min_temp_key"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_day"
+            tools:srcCompat="@drawable/ic_baseline_wb_sunny_24" />
+
+        <TextView
+            android:id="@+id/max_temp_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/max_temp_key"
+            app:layout_constraintStart_toStartOf="@+id/min_temp_key"
+            app:layout_constraintTop_toTopOf="@+id/details_image" />
+
+        <TextView
+            android:id="@+id/min_temp_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_temp_key"
+            app:layout_constraintEnd_toStartOf="@+id/min_temp_value"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/details_image"
+            app:layout_constraintTop_toBottomOf="@+id/max_temp_key" />
+
+        <TextView
+            android:id="@+id/min_temp_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/min_temp_key"
+            tools:text="@string/min_temp_value" />
+
+        <TextView
+            android:id="@+id/sunrise_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="@string/sunrise_key"
+            app:layout_constraintStart_toStartOf="@+id/details_image"
+            app:layout_constraintTop_toBottomOf="@+id/details_image" />
+
+        <TextView
+            android:id="@+id/sunset_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/sunset_key"
+            app:layout_constraintStart_toStartOf="@+id/sunrise_key"
+            app:layout_constraintTop_toBottomOf="@+id/sunrise_key" />
+
+        <TextView
+            android:id="@+id/sunrise_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/min_temp_value"
+            app:layout_constraintTop_toTopOf="@+id/sunrise_key"
+            tools:text="@string/sunrise_value" />
+
+        <TextView
+            android:id="@+id/wind_speed_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/sunset_value"
+            app:layout_constraintTop_toTopOf="@+id/wind_speed_key"
+            tools:text="@string/wind_speed_value" />
+
+        <TextView
+            android:id="@+id/humidity_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/wind_speed_value"
+            app:layout_constraintTop_toTopOf="@+id/humidity_key"
+            tools:text="@string/humidity_value" />
+
+        <TextView
+            android:id="@+id/sunset_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/sunrise_value"
+            app:layout_constraintTop_toTopOf="@+id/sunset_key"
+            tools:text="@string/sunset_value" />
+
+        <TextView
+            android:id="@+id/wind_speed_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/wind_speed_key"
+            app:layout_constraintStart_toStartOf="@+id/sunset_key"
+            app:layout_constraintTop_toBottomOf="@+id/sunset_key" />
+
+        <TextView
+            android:id="@+id/humidity_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/humidity_key"
+            app:layout_constraintStart_toStartOf="@+id/wind_speed_key"
+            app:layout_constraintTop_toBottomOf="@+id/wind_speed_key" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

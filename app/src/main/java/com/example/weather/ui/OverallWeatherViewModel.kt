@@ -37,6 +37,18 @@ class OverallWeatherViewModel(private val application: Application,
     val mHourlyWeather = mCurrentWeatherRepository.mHourlyWeather
     val mDailyWeather = mCurrentWeatherRepository.mDailyWeather
 
+    private val _navigateToWeatherDetails = MutableLiveData<Int>()
+    val navigateToDetails: LiveData<Int>
+        get() = _navigateToWeatherDetails
+
+    fun onDayClicked(id: Int) {
+        _navigateToWeatherDetails.value = id
+    }
+
+    fun onWeatherDetailsNavigated() {
+        _navigateToWeatherDetails.value = null
+    }
+
     override fun onCleared() {
         super.onCleared()
         mViewModelJob.cancel()

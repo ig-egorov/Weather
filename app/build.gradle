@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.secrets_gradle_plugin' version '0.6.1'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -41,7 +42,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def nav_version = "2.3.5"
     def location_version = "18.0.0"
-    def dagger_version = "2.38.1"
     def retrofit_version = "2.9.0"
     def moshi_version = "1.12.0"
     def moshi_kotlin_version = "1.12.0"
@@ -63,10 +63,6 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    //Dagger2
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation "com.google.dagger:dagger:$dagger_version"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

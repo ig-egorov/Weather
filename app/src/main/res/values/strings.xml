@@ -22,9 +22,23 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
 
-    <!--Error strings-->
+    <!-- Error strings -->
     <string name="location_error">Служба геолокации недоступна</string>
     <string name="network_error">Соединение недоступно</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Detail fragment key strings -->
+    <string name="max_temp_key">Максимальная температура, \u2103:</string>
+    <string name="min_temp_key">Минимальная температура, \u2103:</string>
+    <string name="sunrise_key">Восход:</string>
+    <string name="sunset_key">Закат:</string>
+    <string name="humidity_key">Влажность, %:</string>
+    <string name="wind_speed_key">Скорость ветра, м/с:</string>
+    <!-- Details fragment tools text -->
+    <string name="details_description">Few clouds</string>
+    <string name="humidity_value">96</string>
+    <string name="wind_speed_value">7</string>
+    <string name="sunrise_value">5:46</string>
+    <string name="sunset_value">19:54</string>
+    <string name="max_temp_value">19</string>
+    <string name="min_temp_value">12</string>
 </resources>

@@ -39,3 +39,18 @@ fun List<DailyWeatherEntity>.asDomainModel(): List<DailyWeather> {
         )
     }
 }
+
+fun DailyWeatherEntity.asDomainModel(): DailyWeather {
+    return DailyWeather(
+        dailyWeatherId = dailyWeatherId,
+        date = date,
+        sunriseTime = sunriseTime,
+        sunsetTime = sunsetTime,
+        maxTemperature = maxTemperature,
+        minTemperature = minTemperature,
+        humidity = humidity,
+        windSpeed = windSpeed,
+        dailyWeatherDescription = dailyWeatherDescription,
+        dailyWeatherDescriptionIcon = dailyWeatherDescriptionIcon
+    )
+}
