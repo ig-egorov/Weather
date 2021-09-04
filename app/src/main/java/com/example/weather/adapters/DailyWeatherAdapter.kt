@@ -9,7 +9,7 @@ import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.databinding.DailyWeatherItemBinding
 import com.example.weather.weather_models.DailyWeather
 
-class DailyWeatherAdapter(val clickListener: DailyWeatherClickListener) : ListAdapter<DailyWeather,
+class DailyWeatherAdapter(private val clickListener: DailyWeatherClickListener) : ListAdapter<DailyWeather,
         DailyWeatherAdapter.DailyWeatherViewHolder>(DailyWeatherDiffCallback) {
 
 

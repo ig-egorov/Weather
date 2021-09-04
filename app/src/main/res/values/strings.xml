@@ -27,8 +27,8 @@
     <string name="network_error">Соединение недоступно</string>
 
     <!-- Detail fragment key strings -->
-    <string name="max_temp_key">Максимальная температура, \u2103:</string>
-    <string name="min_temp_key">Минимальная температура, \u2103:</string>
+    <string name="max_temp_key">Макс. температура, \u2103:</string>
+    <string name="min_temp_key">Мин. температура, \u2103:</string>
     <string name="sunrise_key">Восход:</string>
     <string name="sunset_key">Закат:</string>
     <string name="humidity_key">Влажность, %:</string>

@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/current_weather_layout.xml" value="0.22079135608388203" />
         <entry key="app/src/main/res/layout/daily_weather_item.xml" value="0.19701086956521738" />
-        <entry key="app/src/main/res/layout/fragment_daily_weather_detail.xml" value="0.2686833591634314" />
+        <entry key="app/src/main/res/layout/fragment_daily_weather_detail.xml" value="0.40707964601769914" />
         <entry key="app/src/main/res/layout/fragment_overall_weather.xml" value="0.16291577947919667" />
         <entry key="app/src/main/res/layout/hourly_weather_item.xml" value="0.20153985507246377" />
         <entry key="app/src/main/res/layout/hourly_weather_recycler.xml" value="0.20153985507246377" />
