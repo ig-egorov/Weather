@@ -1,16 +1,13 @@
 package com.example.weather.database
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.database.entities.DailyWeatherEntity
 import com.example.weather.database.entities.HourlyWeatherEntity
-import kotlinx.coroutines.*
 
 @Database(entities = [CityEntity::class, CurrentWeatherEntity::class, DailyWeatherEntity::class,
                      HourlyWeatherEntity::class], version = 1, exportSchema = false)

@@ -1,7 +1,10 @@
 package com.example.weather.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.CurrentWeatherEntity
 import com.example.weather.database.entities.DailyWeatherEntity

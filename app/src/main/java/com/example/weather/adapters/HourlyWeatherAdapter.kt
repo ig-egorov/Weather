@@ -2,11 +2,9 @@ package com.example.weather.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.databinding.HourlyWeatherItemBinding
 import com.example.weather.weather_models.HourlyWeather
 

@@ -17,10 +17,14 @@ import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.asDomainModel
 import com.example.weather.weather_models.CurrentCity
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
-import kotlinx.coroutines.*
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Runnable
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException

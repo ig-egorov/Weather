@@ -1,14 +1,12 @@
 package com.example.weather.repository
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.weather.R
 import com.example.weather.database.WeatherDatabase
-import com.example.weather.database.entities.*
+import com.example.weather.database.entities.asDomainModel
 import com.example.weather.network.WeatherAPI
 import com.example.weather.network.asCurrentWeatherDatabaseModel
 import com.example.weather.network.asDailyWeatherDatabaseModel
@@ -16,9 +14,8 @@ import com.example.weather.network.asHourlyWeatherDatabaseModel
 import com.example.weather.weather_models.CurrentWeather
 import com.example.weather.weather_models.DailyWeather
 import com.example.weather.weather_models.HourlyWeather
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.*
-import java.lang.Exception
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 private const val TAG = "CurrentWeatherRepo"
 

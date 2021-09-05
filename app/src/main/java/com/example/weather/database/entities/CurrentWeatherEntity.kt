@@ -1,10 +1,7 @@
 package com.example.weather.database.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.weather.inner_weather_classes.WeatherDescription
-import com.example.weather.inner_weather_classes.current_weather.CurrentWeatherConditionsInfo
 import com.example.weather.weather_models.CurrentWeather
 
 @Entity(tableName = "current_weather_table")

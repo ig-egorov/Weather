@@ -1,15 +1,11 @@
 package com.example.weather.util
 
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.weather.R
-import com.example.weather.database.entities.CurrentWeatherEntity
-import com.example.weather.database.entities.DailyWeatherEntity
-import com.example.weather.database.entities.HourlyWeatherEntity
 import com.example.weather.weather_models.CurrentCity
 import com.example.weather.weather_models.CurrentWeather
 import com.example.weather.weather_models.DailyWeather

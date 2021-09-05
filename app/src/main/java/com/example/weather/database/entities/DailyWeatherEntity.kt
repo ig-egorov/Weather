@@ -2,9 +2,7 @@ package com.example.weather.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.weather.inner_weather_classes.Temperature
 import com.example.weather.weather_models.DailyWeather
-import com.squareup.moshi.Json
 
 @Entity(tableName = "daily_weather_table")
 data class DailyWeatherEntity (
