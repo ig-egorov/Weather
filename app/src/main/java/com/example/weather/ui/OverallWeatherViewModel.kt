@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weather.database.WeatherDatabase
-import com.example.weather.database.WeatherDatabaseDAO
-import com.example.weather.repository.CurrentWeatherRepository
+import com.example.weather.repository.WeatherRepository
 import com.example.weather.repository.LocationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,20 +21,16 @@ class OverallWeatherViewModel(private val application: Application,
 
     private val mLocationRepository = LocationRepository(application.applicationContext,
         weatherDatabase)
-    private val mCurrentWeatherRepository = CurrentWeatherRepository(weatherDatabase)
-
+    private val mWeatherRepository = WeatherRepository(weatherDatabase)
 
     init {
-        mViewModelScope.launch {
-            mLocationRepository.updateLocation()
-            mCurrentWeatherRepository.updateWeather(application.applicationContext)
-        }
+        updateWeather()
     }
 
     val mCurrentCity = mLocationRepository.mCurrentCity
-    val mCurrentWeather = mCurrentWeatherRepository.mCurrentWeather
-    val mHourlyWeather = mCurrentWeatherRepository.mHourlyWeather
-    val mDailyWeather = mCurrentWeatherRepository.mDailyWeather
+    val mCurrentWeather = mWeatherRepository.mCurrentWeather
+    val mHourlyWeather = mWeatherRepository.mHourlyWeather
+    val mDailyWeather = mWeatherRepository.mDailyWeather
 
     private val _navigateToWeatherDetails = MutableLiveData<Int>()
     val navigateToDetails: LiveData<Int>
@@ -52,5 +47,12 @@ class OverallWeatherViewModel(private val application: Application,
     override fun onCleared() {
         super.onCleared()
         mViewModelJob.cancel()
+    }
+
+    fun updateWeather() {
+        mViewModelScope.launch {
+            mLocationRepository.updateLocation()
+            mWeatherRepository.updateWeather(application.applicationContext)
+        }
     }
 }

@@ -7,16 +7,20 @@
     <fragment
         android:id="@+id/overallWeatherFragment"
         android:name="com.example.weather.ui.OverallWeatherFragment"
-        android:label="OverallWeatherFragment" >
+        android:label="@string/overall_weather_label" >
         <action
             android:id="@+id/action_overallWeatherFragment_to_dailyWeatherDetailFragment"
             app:destination="@id/dailyWeatherDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/overallWeatherFragment" />
     </fragment>
     <fragment
         android:id="@+id/dailyWeatherDetailFragment"
         android:name="com.example.weather.ui.DailyWeatherDetailFragment"
-        android:label="fragment_daily_weather_detail"
+        android:label="@string/daily_weather_details_label"
         tools:layout="@layout/fragment_daily_weather_detail" >
         <argument
             android:name="weatherId"

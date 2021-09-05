@@ -22,7 +22,7 @@ import java.lang.Exception
 
 private const val TAG = "CurrentWeatherRepo"
 
-class CurrentWeatherRepository(private val database: WeatherDatabase) {
+class WeatherRepository(private val database: WeatherDatabase) {
 
     private val _mCurrentWeather = Transformations.map(database.weatherDatabaseDAO.getCurrentWeather()) {
         it?.asDomainModel()

@@ -2,26 +2,48 @@ package com.example.weather
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityManager
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.weather.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = "MainActivity"
+    private lateinit var binding: ActivityMainBinding
     private val mREQUEST_CODE = 42
+    private val locationRationalSnackbar by lazy {
+        Snackbar.make(binding.root, R.string.location_snackbar_rationale, Snackbar.LENGTH_LONG)
+            .setAction(R.string.ok) {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUEST_CODE)
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil
-            .setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         checkPermissions()
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        NavigationUI.setupActionBarWithNavController(this, navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp()
     }
 
     private fun checkPermissions() {
@@ -29,9 +51,42 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return
         } else {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUEST_CODE)
+            ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            locationRationalSnackbar.show()
+//            ActivityCompat.requestPermissions(this,
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUEST_CODE)
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == mREQUEST_CODE) {
+            when {
+                grantResults.isEmpty() -> Log.d(TAG, "Cancelled interaction")
+                grantResults[0] == PackageManager.PERMISSION_GRANTED ->
+                    Snackbar.make(binding.root, R.string.approved_permission, Snackbar.LENGTH_LONG)
+                        .show()
+                else -> Snackbar.make(binding.root, R.string.denied_permission, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.settings) {
+                        val intent = Intent()
+                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                        val uri = Uri.fromParts(
+                            "package",
+                            BuildConfig.APPLICATION_ID,
+                            null
+                        )
+                        intent.data = uri
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                }.show()
+            }
+        }
+
     }
 
     override fun onStop() {

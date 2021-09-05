@@ -1,10 +1,8 @@
 package com.example.weather.ui
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,17 +19,20 @@ import com.example.weather.databinding.FragmentOverallWeatherBinding
 
 class OverallWeatherFragment : Fragment() {
 
+    private lateinit var viewModel: OverallWeatherViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         val binding: FragmentOverallWeatherBinding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_overall_weather, container, false)
+        setHasOptionsMenu(true)
 
         val application = requireActivity().application
 
         val weatherDatabase = WeatherDatabase.getDatabase(application)
 
         val viewModelFactory = OverallWeatherViewModelFactory(application, weatherDatabase)
-        val viewModel = ViewModelProvider(this, viewModelFactory)
+        viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverallWeatherViewModel::class.java)
 
         binding.apply {
@@ -71,4 +72,18 @@ class OverallWeatherFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.update -> {
+                viewModel.updateWeather()
+                true
+            }
+            else -> false
+        }
+    }
 }

@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="overall_weather_label">Погода</string>
+
+    <string name="location_snackbar_rationale">Необходим доступ к службам геолокации</string>
+    <string name="ok">OK</string>
+    <string name="approved_permission">Разрешение одобрено</string>
+    <string name="denied_permission">Разрешение отклонено</string>
+    <string name="settings">Настройки</string>
     <!-- Current weather conditions layout strings -->
     <string name="current_weather_conditions_description">Current weather conditions</string>
     <string name="current_weather_temperature_text">16</string>
@@ -33,6 +40,7 @@
     <string name="sunset_key">Закат:</string>
     <string name="humidity_key">Влажность, %:</string>
     <string name="wind_speed_key">Скорость ветра, м/с:</string>
+    <string name="daily_weather_details_label">Подробно:</string>
     <!-- Details fragment tools text -->
     <string name="details_description">Few clouds</string>
     <string name="humidity_value">96</string>
@@ -41,4 +49,7 @@
     <string name="sunset_value">19:54</string>
     <string name="max_temp_value">19</string>
     <string name="min_temp_value">12</string>
+
+    <!--Menu strings-->
+    <string name="update">Обновить</string>
 </resources>
