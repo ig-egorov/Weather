@@ -5,8 +5,7 @@
     <string name="location_snackbar_rationale">Необходим доступ к службам геолокации</string>
     <string name="ok">OK</string>
     <string name="approved_permission">Разрешение одобрено</string>
-    <string name="denied_permission">Разрешение отклонено.
-        Для использования приложения разрешите использование служб геолокации</string>
+    <string name="denied_permission">Настроить доступ к геолокации -></string>
     <string name="settings">Настройки</string>
     <!-- Current weather conditions layout strings -->
     <string name="current_weather_conditions_description">Current weather conditions</string>
