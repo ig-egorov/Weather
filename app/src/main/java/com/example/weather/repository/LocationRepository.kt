@@ -54,8 +54,6 @@ class LocationRepository(
             val currentLocation = fusedLocationClient
                 .awaitCurrentLocation(context, cancellationTokenSource)
 
-            val locationExecutor = Executors.newSingleThreadExecutor()
-
             val addresses = suspendCoroutine<List<Address>> { continuation ->
                 val runnable = Runnable {
                     try {
@@ -74,7 +72,8 @@ class LocationRepository(
                         }
                     }
                 }
-                locationExecutor.execute(runnable)
+                val geocoderThread = Thread(runnable)
+                geocoderThread.start()
             }
 
             val currentCity = addresses[0].locality
