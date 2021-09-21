@@ -15,9 +15,10 @@ import androidx.navigation.ui.NavigationUI
 import com.example.weather.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
+private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity() {
 
-    private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
     private val mREQUEST_CODE = 42
     private val locationRationalSnackbar by lazy {
@@ -79,6 +80,5 @@ class MainActivity : AppCompatActivity() {
                 }.show()
             }
         }
-
     }
 }

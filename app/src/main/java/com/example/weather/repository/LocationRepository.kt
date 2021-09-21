@@ -1,6 +1,7 @@
 package com.example.weather.repository
 
 import android.Manifest
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Address
@@ -12,8 +13,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.weather.BaseApplication
 import com.example.weather.R
 import com.example.weather.database.WeatherDatabase
+import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.asDomainModel
 import com.example.weather.weather_models.CurrentCity
@@ -26,19 +29,20 @@ import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
+import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 private const val TAG = "LocationRepo"
 
-class LocationRepository(
-    private val context: Context,
-    private val weatherDatabase: WeatherDatabase
+class LocationRepository @Inject constructor(
+    private val application: Application,
+    private val weatherDatabaseDAO: WeatherDatabaseDAO
 ) {
 
     private val _mCurrentCity = Transformations
-        .map(weatherDatabase.weatherDatabaseDAO.getCurrentCity()) {
+        .map(weatherDatabaseDAO.getCurrentCity()) {
             it?.asDomainModel()
         }
 
@@ -48,11 +52,11 @@ class LocationRepository(
     suspend fun updateLocation() {
         withContext(Dispatchers.Default) {
             val fusedLocationClient: FusedLocationProviderClient = LocationServices
-                .getFusedLocationProviderClient(context)
+                .getFusedLocationProviderClient(application)
             val cancellationTokenSource = CancellationTokenSource()
-            val geocoder = Geocoder(context)
+            val geocoder = Geocoder(application)
             val currentLocation = fusedLocationClient
-                .awaitCurrentLocation(context, cancellationTokenSource)
+                .awaitCurrentLocation(application, cancellationTokenSource)
 
             val addresses = suspendCoroutine<List<Address>> { continuation ->
                 val runnable = Runnable {
@@ -63,9 +67,9 @@ class LocationRepository(
                         )
                         continuation.resume(addresses)
                     } catch (e: Exception) {
-                        ContextCompat.getMainExecutor(context).execute {
+                        ContextCompat.getMainExecutor(application).execute {
                             Toast.makeText(
-                                context, context.getString(R.string.location_error),
+                                application, application.getString(R.string.location_error),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -85,7 +89,7 @@ class LocationRepository(
             )
 
             withContext(Dispatchers.IO) {
-                weatherDatabase.weatherDatabaseDAO.insertCurrentCity(currentCityEntity)
+                weatherDatabaseDAO.insertCurrentCity(currentCityEntity)
                 Log.i(TAG, currentCityEntity.cityName)
                 Log.i(TAG, "Weather Inserted")
             }

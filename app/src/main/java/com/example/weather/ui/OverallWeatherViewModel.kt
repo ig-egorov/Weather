@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weather.BaseApplication
 import com.example.weather.database.WeatherDatabase
+import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.repository.LocationRepository
 import com.example.weather.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
@@ -12,16 +14,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class OverallWeatherViewModel(private val application: Application,
-                              private val weatherDatabase: WeatherDatabase
-) : ViewModel() {
+class OverallWeatherViewModel(private val mWeatherRepository: WeatherRepository,
+                              private val mLocationRepository: LocationRepository) : ViewModel() {
 
     private val mViewModelJob = SupervisorJob()
     private val mViewModelScope = CoroutineScope(Dispatchers.Main + mViewModelJob)
 
-    private val mLocationRepository = LocationRepository(application.applicationContext,
-        weatherDatabase)
-    private val mWeatherRepository = WeatherRepository(weatherDatabase)
+//    private val mLocationRepository = LocationRepository(application,
+//        weatherDatabaseDao)
+//    private val mWeatherRepository = WeatherRepository(application, weatherDatabaseDao, )
 
     init {
         updateWeather()
@@ -52,7 +53,7 @@ class OverallWeatherViewModel(private val application: Application,
     fun updateWeather() {
         mViewModelScope.launch {
             mLocationRepository.updateLocation()
-            mWeatherRepository.updateWeather(application.applicationContext)
+            mWeatherRepository.updateWeather()
         }
     }
 }

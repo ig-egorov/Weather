@@ -9,19 +9,18 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"
 private const val WEATHER_UNITS = "metric"
 private const val EXCLUDE_STRING = "minutely,alerts"
 
 
-private val mMoshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+//private val mMoshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+//
+//private val mRetrofit = Retrofit.Builder()
+//    .baseUrl(BASE_URL)
+//    .addConverterFactory(MoshiConverterFactory.create(mMoshi))
+//    .build()
 
-private val mRetrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
-    .addConverterFactory(MoshiConverterFactory.create(mMoshi))
-    .build()
-
-interface CurrentWeatherApiService {
+interface WeatherApiService {
     @GET("onecall")
     suspend fun getWeather(
         @Query("lat") lat: String,
@@ -30,10 +29,14 @@ interface CurrentWeatherApiService {
         @Query("exclude") exclude: String = EXCLUDE_STRING,
         @Query("appid") apiKey: String = BuildConfig.CURRENT_WEATHER_API_KEY
     ): Response<OverallWeatherDTO>
-}
 
-object WeatherAPI {
-    val overallWeatherRetrofitService: CurrentWeatherApiService by lazy {
-        mRetrofit.create(CurrentWeatherApiService::class.java)
+    companion object {
+        val BASE_URL = "https://api.openweathermap.org/data/2.5/"
     }
 }
+
+//object WeatherAPI {
+//    val overallWeatherRetrofitService: WeatherApiService by lazy {
+//        mRetrofit.create(WeatherApiService::class.java)
+//    }
+//}
