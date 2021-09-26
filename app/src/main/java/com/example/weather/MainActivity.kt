@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val mREQUEST_CODE = 42
     private val locationRationalSnackbar by lazy {
-        Snackbar.make(binding.root, R.string.location_snackbar_rationale, Snackbar.LENGTH_LONG)
+        Snackbar.make(binding.root, R.string.location_snackbar_rationale, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.ok) {
                 ActivityCompat.requestPermissions(this,
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUEST_CODE)

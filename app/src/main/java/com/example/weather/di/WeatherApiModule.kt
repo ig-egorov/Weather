@@ -16,13 +16,13 @@ class WeatherApiModule {
     @Provides
     fun provideAdapterFactory(): KotlinJsonAdapterFactory = KotlinJsonAdapterFactory()
 
-
+    @Singleton
     @Provides
     fun provideMoshi(kotlinJsonAdapterFactory: KotlinJsonAdapterFactory): Moshi {
         return Moshi.Builder().add(kotlinJsonAdapterFactory).build()
     }
 
-
+    @Singleton
     @Provides
     fun provideRetrofit(moshi: Moshi): Retrofit {
         return Retrofit.Builder()
@@ -31,7 +31,7 @@ class WeatherApiModule {
             .build()
     }
 
-
+    @Singleton
     @Provides
     fun provideWeatherAPI(retrofit: Retrofit): WeatherApiService {
         return retrofit.create(WeatherApiService::class.java)

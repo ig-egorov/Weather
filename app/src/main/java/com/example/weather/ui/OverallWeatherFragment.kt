@@ -43,10 +43,6 @@ class OverallWeatherFragment : Fragment() {
             .inflate(inflater, R.layout.fragment_overall_weather, container, false)
         setHasOptionsMenu(true)
 
-        //val application = requireActivity().application
-
-        //val weatherDatabase = WeatherDatabase.getDatabase(application)
-
         val viewModelFactory = OverallWeatherViewModelFactory(weatherRepository, locationRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverallWeatherViewModel::class.java)

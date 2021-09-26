@@ -13,13 +13,6 @@ private const val WEATHER_UNITS = "metric"
 private const val EXCLUDE_STRING = "minutely,alerts"
 
 
-//private val mMoshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-//
-//private val mRetrofit = Retrofit.Builder()
-//    .baseUrl(BASE_URL)
-//    .addConverterFactory(MoshiConverterFactory.create(mMoshi))
-//    .build()
-
 interface WeatherApiService {
     @GET("onecall")
     suspend fun getWeather(
@@ -35,8 +28,3 @@ interface WeatherApiService {
     }
 }
 
-//object WeatherAPI {
-//    val overallWeatherRetrofitService: WeatherApiService by lazy {
-//        mRetrofit.create(WeatherApiService::class.java)
-//    }
-//}

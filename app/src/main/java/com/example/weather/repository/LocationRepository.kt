@@ -30,12 +30,14 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 private const val TAG = "LocationRepo"
 
+@Singleton
 class LocationRepository @Inject constructor(
     private val application: Application,
     private val weatherDatabaseDAO: WeatherDatabaseDAO

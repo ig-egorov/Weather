@@ -48,12 +48,23 @@
             android:id="@+id/daily_weather_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_large"
             android:textSize="@dimen/text_normal"
             app:bindDailyTemperature="@{dailyWeather}"
             app:layout_constraintBottom_toBottomOf="@+id/daily_weather_conditions"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/daily_weather_conditions"
             app:layout_constraintTop_toTopOf="@+id/daily_weather_conditions"
             tools:text="@string/daily_weather_temperature_text" />
+
+        <ImageView
+            android:id="@+id/arrow_right"
+            android:layout_width="@dimen/image_width_normal"
+            android:layout_height="@dimen/image_height_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:srcCompat="@drawable/ic_baseline_arrow_right_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_baseline_arrow_right_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

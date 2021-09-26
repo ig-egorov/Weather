@@ -17,9 +17,11 @@ import com.example.weather.weather_models.HourlyWeather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "CurrentWeatherRepo"
 
+@Singleton
 class WeatherRepository @Inject constructor(private val application: Application,
                                             private val weatherDatabaseDAO: WeatherDatabaseDAO,
                                             private val weatherApiService: WeatherApiService) {
@@ -52,9 +54,11 @@ class WeatherRepository @Inject constructor(private val application: Application
                     val currentWeatherEntity = weatherDTO.asCurrentWeatherDatabaseModel()
                     val hourlyWeather = weatherDTO.asHourlyWeatherDatabaseModel()
                     val dailyWeather = weatherDTO.asDailyWeatherDatabaseModel()
-                    weatherDatabaseDAO.insertCurrentWeather(currentWeatherEntity)
-                    weatherDatabaseDAO.insertHourlyWeather(*hourlyWeather)
-                    weatherDatabaseDAO.insertDailyWeather(*dailyWeather)
+                    weatherDatabaseDAO.apply {
+                        insertCurrentWeather(currentWeatherEntity)
+                        insertHourlyWeather(*hourlyWeather)
+                        insertDailyWeather(*dailyWeather)
+                    }
                 } else {
                     Toast.makeText(application, R.string.network_error,
                         Toast.LENGTH_SHORT).show()
