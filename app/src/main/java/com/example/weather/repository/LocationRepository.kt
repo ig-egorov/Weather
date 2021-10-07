@@ -13,9 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.weather.BaseApplication
 import com.example.weather.R
-import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.database.entities.CityEntity
 import com.example.weather.database.entities.asDomainModel
@@ -28,7 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.resume

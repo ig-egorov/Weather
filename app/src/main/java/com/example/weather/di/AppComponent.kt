@@ -1,8 +1,6 @@
 package com.example.weather.di
 
 import android.app.Application
-import android.content.Context
-import com.example.weather.BaseApplication
 import com.example.weather.ui.DailyWeatherDetailFragment
 import com.example.weather.ui.OverallWeatherFragment
 import dagger.BindsInstance

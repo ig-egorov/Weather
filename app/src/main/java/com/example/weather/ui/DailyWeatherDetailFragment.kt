@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.R
 import com.example.weather.appComponent
-import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.databinding.FragmentDailyWeatherDetailBinding
 import javax.inject.Inject

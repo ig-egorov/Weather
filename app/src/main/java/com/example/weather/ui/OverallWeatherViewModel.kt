@@ -1,12 +1,8 @@
 package com.example.weather.ui
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weather.BaseApplication
-import com.example.weather.database.WeatherDatabase
-import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.repository.LocationRepository
 import com.example.weather.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope

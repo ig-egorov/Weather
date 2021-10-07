@@ -20,12 +20,12 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val mREQUEST_CODE = 42
+    private val mREQUESTCODE = 42
     private val locationRationalSnackbar by lazy {
         Snackbar.make(binding.root, R.string.location_snackbar_rationale, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.ok) {
                 ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUEST_CODE)
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), mREQUESTCODE)
             }
     }
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == mREQUEST_CODE) {
+        if (requestCode == mREQUESTCODE) {
             when {
                 grantResults.isEmpty() -> Log.d(TAG, "Cancelled interaction")
                 grantResults[0] == PackageManager.PERMISSION_GRANTED ->

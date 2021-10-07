@@ -2,7 +2,6 @@ package com.example.weather.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weather.database.WeatherDatabase
 import com.example.weather.database.WeatherDatabaseDAO
 
 class DailyWeatherDetailViewModelFactory(private val databaseDao: WeatherDatabaseDAO, private val id: Int) : ViewModelProvider.Factory {

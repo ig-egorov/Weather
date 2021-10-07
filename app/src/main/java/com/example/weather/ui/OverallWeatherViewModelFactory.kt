@@ -1,10 +1,7 @@
 package com.example.weather.ui
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.weather.database.WeatherDatabase
-import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.repository.LocationRepository
 import com.example.weather.repository.WeatherRepository
 

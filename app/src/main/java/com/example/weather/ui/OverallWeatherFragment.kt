@@ -1,6 +1,5 @@
 package com.example.weather.ui
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -9,15 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.weather.BaseApplication
 import com.example.weather.R
 import com.example.weather.adapters.DailyWeatherAdapter
 import com.example.weather.adapters.DailyWeatherClickListener
 import com.example.weather.adapters.HourlyWeatherAdapter
 import com.example.weather.appComponent
-
-import com.example.weather.database.WeatherDatabase
-import com.example.weather.database.WeatherDatabaseDAO
 import com.example.weather.databinding.FragmentOverallWeatherBinding
 import com.example.weather.repository.LocationRepository
 import com.example.weather.repository.WeatherRepository
