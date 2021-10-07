@@ -1,9 +1,11 @@
 # Weather
 Weather project
 
-![title screen](screenshots/title_screen.png)  
+<p float="left">
+<img src=screenshots/title_screen.png width=295 height=537 />
+<img src=screenshots/details_screen.png width=295 height=537 />
+</p>
 
-![details screen](screenshots/details_screen.png) 
 ### Description
 Weather app is a small project that uses *OpenWeatherMap API* for displaying weather in users current location. Location permission is required.
 
